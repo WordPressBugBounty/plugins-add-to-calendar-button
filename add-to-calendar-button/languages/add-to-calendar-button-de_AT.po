@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Add to Calendar Button Plugin\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/add-to-calendar-"
+"button\n"
+"POT-Creation-Date: 2023-01-05 10:23+0100\n"
+"PO-Revision-Date: 2023-12-19 20:26+0100\n"
+"Last-Translator: Jens Kuerschner <mail@add-to-calendar-pro.com>\n"
+"Language-Team: \n"
+"Language: de_AT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Domain: add-to-calendar-button\n"
+
+msgid "Creates a button that adds an event to the user's calendar."
+msgstr ""
+"Erzeugt einen Button, über den Nutzer ein Event zu ihrem Kalender hinzufügen "
+"können."
+
+msgid "My Event Title"
+msgstr "Mein Event-Titel"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Calendar options"
+msgstr "Kalender-Optionen"
+
+msgid "Other attributes"
+msgstr "Andere Attribute"
+
+msgid "Overrides"
+msgstr "Optionen überschreiben"
+
+msgid "Click here for documentation"
+msgstr "Klicke hier, um die Dokumentation zu öffnen"
+
+msgid ""
+"With PRO active, only some attributes can be manipulated here. Check the "
+"docs for more details and try to adjust an event in the app first."
+msgstr ""
+"Wenn du PRO nutzt, kannst du hier nur manche Attribute manipulieren. Lies "
+"die Dokumentation für weitere Details und versuche Optionen zunächst über "
+"die App anzupassen."
+
+msgid "Mind that the interaction with the button is blocked in edit mode"
+msgstr ""
+"Die Interaktionsmöglichkeit mit dem Button ist im Editier-Modus deaktiviert"
+
+msgid "Calendar"
+msgstr "Kalender"
+
+msgid "save"
+msgstr "speichern"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Appointment"
+msgstr "Termin"
+
+msgid "Configuration Options"
+msgstr "Optionen zur Konfiguration"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Load script unstyled"
+msgstr "Skript ohne Style laden"
+
+msgid "This will use a smaller version of the script."
+msgstr "Hierdurch wird eine kleinere Version des Skripts geladen."
+
+msgid ""
+"Mind that elements will not be styled, if activated! You would need to use "
+"the customCss option to style them; or (if using the PRO version) activate "
+"the \"Load Async\" option at respective styles."
+msgstr ""
+"Beachte, dass Elemente keinen Style besitzen, wenn diese Option aktiviert "
+"ist! Du musst müssen die Option customCss verwenden, um sie zu stylen; oder "
+"(wenn du die PRO-Version verwendest) du aktivierst die Option \"Load Async\" "
+"am jeweiligen Style in der App."
+
+msgid "Discover the PRO offering"
+msgstr "Entdecke das PRO-Angebot"
+
+msgid ""
+"More functionality (like RSVP) and way less trouble thanks to managed ics "
+"file hosting, no-code customization, and more."
+msgstr ""
+"Mehr Funktionen (wie RSVP) und deutlich weniger Stress dank ics-Datei-"
+"Hosting, No-Code-Bearbeitung und vielem mehr."
+
+msgid "Learn more"
+msgstr "Mehr erfahren"
+
+msgid "Go PRO"
+msgstr "Go PRO"
+
+msgid "This page holds global settings for Add to Calendar stuff."
+msgstr ""
+"Diese Seite enthält die globalen Einstellungen der Add-to-Calendar-Elemente."
+
+msgid "Check our PRO offering for the best experience and less trouble."
+msgstr ""
+"Teste unser PRO-Angebot für ein noch besseres Erlebnis und weniger Stress."
+
+msgid ""
+"Without PRO, you would need to configure all options right at the button - "
+"check %s for available options."
+msgstr ""
+"Ohne PRO musst du alle Optionen direkt am Button-Element konfigurieren - "
+"siehe %s für die verfügbaren Optionen."
+
+#~ msgid "World Wide Web"
+#~ msgstr "World Wide Web"
+
+#~ msgid "Attributes"
+#~ msgstr "Attribute"

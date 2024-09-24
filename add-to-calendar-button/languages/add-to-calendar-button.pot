@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Add to Calendar Button Plugin\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/add-to-calendar-button\n"
+"POT-Creation-Date: 2023-01-05 10:23+0100\n"
+"PO-Revision-Date: 2023-01-05 23:01+0100\n"
+"Last-Translator: Jens Kuerschner <mail@add-to-calendar-pro.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Domain: add-to-calendar-button\n"
+
+msgid "Creates a button that adds an event to the user's calendar."
+msgstr ""
+
+msgid "My Event Title"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Calendar options"
+msgstr ""
+
+msgid "Other attributes"
+msgstr ""
+
+msgid "Overrides"
+msgstr ""
+
+msgid "Click here for documentation"
+msgstr ""
+
+msgid "With PRO active, only some attributes can be manipulated here. Check the docs for more details and try to adjust an event in the app first."
+msgstr ""
+
+msgid "Mind that the interaction with the button is blocked in edit mode"
+msgstr ""
+
+msgid "Calendar"
+msgstr ""
+
+msgid "save"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Appointment"
+msgstr ""
+
+msgid "Configuration Options"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Load script unstyled"
+msgstr ""
+
+msgid "This will use a smaller version of the script."
+msgstr ""
+
+msgid "Mind that elements will not be styled, if activated! You would need to use the customCss option to style them; or (if using the PRO version) activate the \"Load Async\" option at respective styles."
+msgstr ""
+
+msgid "Discover the PRO offering"
+msgstr ""
+
+msgid "More functionality (like RSVP) and way less trouble thanks to managed ics file hosting, no-code customization, and more."
+msgstr ""
+
+msgid "Learn more"
+msgstr ""
+
+msgid "Go PRO"
+msgstr ""
+
+msgid "This page holds global settings for Add to Calendar stuff."
+msgstr ""
+
+msgid "Check our PRO offering for the best experience and less trouble."
+msgstr ""
+
+msgid "Without PRO, you would need to configure all options right at the button - check %s for available options."
+msgstr ""

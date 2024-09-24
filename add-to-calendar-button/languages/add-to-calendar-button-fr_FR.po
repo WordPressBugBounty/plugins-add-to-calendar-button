@@ -1,0 +1,120 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Add to Calendar Button Plugin\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/add-to-calendar-"
+"button\n"
+"POT-Creation-Date: 2023-01-05 10:23+0100\n"
+"PO-Revision-Date: 2023-12-19 20:39+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Domain: add-to-calendar-button\n"
+
+msgid "Creates a button that adds an event to the user's calendar."
+msgstr "Crée un bouton qui ajoute un événement au calendrier de l'utilisateur."
+
+msgid "My Event Title"
+msgstr "Titre de l'événement"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Calendar options"
+msgstr "Options de calendrier"
+
+msgid "Other attributes"
+msgstr "Autres attributs"
+
+msgid "Overrides"
+msgstr "Remplacer les options"
+
+msgid "Click here for documentation"
+msgstr "Cliquez ici pour la documentation"
+
+msgid ""
+"With PRO active, only some attributes can be manipulated here. Check the "
+"docs for more details and try to adjust an event in the app first."
+msgstr ""
+"Avec PRO actif, seuls certains attributs peuvent être manipulés ici. "
+"Consultez la documentation pour plus de détails et essayez d'abord d'ajuster "
+"un événement dans l'application."
+
+msgid "Mind that the interaction with the button is blocked in edit mode"
+msgstr "Attention, l'interaction avec le bouton est bloquée en mode édition"
+
+msgid "Calendar"
+msgstr "Agenda"
+
+msgid "save"
+msgstr "sauver"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Appointment"
+msgstr "Rendez-vous"
+
+msgid "Configuration Options"
+msgstr "Configuration"
+
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "Load script unstyled"
+msgstr "Charger un script non stylisé"
+
+msgid "This will use a smaller version of the script."
+msgstr "Cela permet d'utiliser une version plus petite du script."
+
+msgid ""
+"Mind that elements will not be styled, if activated! You would need to use "
+"the customCss option to style them; or (if using the PRO version) activate "
+"the \"Load Async\" option at respective styles."
+msgstr ""
+"Notez que les éléments ne seront pas stylisés s'ils sont activés ! Vous "
+"devrez utiliser l'option customCss pour les styliser ; ou (si vous utilisez "
+"la version PRO) activer l'option \"Load Async\" dans les styles respectifs."
+
+msgid "Discover the PRO offering"
+msgstr "Découvrez l'offre PRO"
+
+msgid ""
+"More functionality (like RSVP) and way less trouble thanks to managed ics "
+"file hosting, no-code customization, and more."
+msgstr ""
+"Plus de fonctionnalités (comme RSVP) et beaucoup moins de problèmes grâce à "
+"l'hébergement géré des fichiers ics, à la personnalisation sans code, etc."
+
+msgid "Learn more"
+msgstr "En savoir plus"
+
+msgid "Go PRO"
+msgstr "Go PRO"
+
+msgid "This page holds global settings for Add to Calendar stuff."
+msgstr ""
+"Cette page contient les paramètres globaux de l'option Ajouter au calendrier."
+
+msgid "Check our PRO offering for the best experience and less trouble."
+msgstr ""
+"Consultez notre offre PRO pour une meilleure expérience et moins de "
+"problèmes."
+
+msgid ""
+"Without PRO, you would need to configure all options right at the button - "
+"check %s for available options."
+msgstr ""
+"Sans PRO, vous devriez configurer toutes les options directement sur le "
+"bouton - vérifiez %s pour les options disponibles."
+
+#~ msgid "World Wide Web"
+#~ msgstr "World Wide Web"
+
+#~ msgid "Attributes"
+#~ msgstr "Attributs"
