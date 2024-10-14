@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/add-to-calendar-"
 "button\n"
 "POT-Creation-Date: 2023-01-05 10:23+0100\n"
-"PO-Revision-Date: 2023-12-19 20:26+0100\n"
+"PO-Revision-Date: 2024-10-14 23:23+0200\n"
 "Last-Translator: Jens Kuerschner <mail@add-to-calendar-pro.com>\n"
 "Language-Team: \n"
 "Language: de_DE@formal\n"
@@ -30,22 +30,56 @@ msgstr "Name"
 msgid "Calendar options"
 msgstr "Kalender-Optionen"
 
+msgid "No"
+msgstr "Nein"
+
+msgid "Location"
+msgstr "Ort"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Time Zone"
+msgstr "Zeitzone"
+
+msgid "Date/Time Input Scheme"
+msgstr "Datum/Uhrzeit-Eingabe-Schema"
+
+msgid "All-day"
+msgstr "Ganztags"
+
+msgid "Date + Time"
+msgstr "Datum + Uhrzeit"
+
+msgid "Datetime"
+msgstr "Datetime"
+
+msgid "Start Date and Time"
+msgstr "Startdatum und -zeit"
+
+msgid "End Date and Time"
+msgstr "Enddatum und -zeit"
+
+msgid "Start Date"
+msgstr "Startdatum"
+
+msgid "End Date"
+msgstr "Enddatum"
+
+msgid "Start Time"
+msgstr "Startzeit"
+
+msgid "End Time"
+msgstr "Endzeit"
+
 msgid "Other attributes"
 msgstr "Andere Attribute"
 
-msgid "Overrides"
-msgstr "Optionen überschreiben"
+msgid "Additional overrides"
+msgstr "Weitere Optionen überschreiben"
 
 msgid "Click here for documentation"
 msgstr "Klicken Sie hier, um die Dokumentation zu öffnen"
-
-msgid ""
-"With PRO active, only some attributes can be manipulated here. Check the "
-"docs for more details and try to adjust an event in the app first."
-msgstr ""
-"Wenn Sie PRO nutzen, können hier nur manche Attribute manipuliert werden. "
-"Lesen Sie die Dokumentation für weitere Details und versuchen Sie Optionen "
-"zunächst über die App anzupassen."
 
 msgid "Mind that the interaction with the button is blocked in edit mode"
 msgstr ""
@@ -66,14 +100,29 @@ msgstr "Termin"
 msgid "Configuration Options"
 msgstr "Optionen zur Konfiguration"
 
+msgid "Documentation"
+msgstr "Dokumentation"
+
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "Support"
+msgstr ""
+
+msgid "Review"
+msgstr ""
 
 msgid "Load script unstyled"
 msgstr "Skript ohne Style laden"
 
 msgid "This will use a smaller version of the script."
 msgstr "Hierdurch wird eine kleinere Version des Skripts geladen."
+
+msgid "PRO User"
+msgstr "PRO-Nutzer"
+
+msgid "I am a PRO user. Hide the ads for it."
+msgstr "Ich nutze die PRO-Version. Blende die Hinweise darauf aus."
 
 msgid ""
 "Mind that elements will not be styled, if activated! You would need to use "
@@ -84,6 +133,9 @@ msgstr ""
 "aktiviert ist! Sie müssen die Option customCss verwenden, um sie zu stylen; "
 "oder (wenn Sie die PRO-Version verwenden) Sie aktivieren die Option \"Load "
 "Async\" am jeweiligen Style in der App."
+
+msgid "Also mind that dynamic date overrides are not evaluated in edit mode"
+msgstr "Dynamic Date Overrides werden im Editier-Modus nicht ausgewertet"
 
 msgid "Discover the PRO offering"
 msgstr "Entdecke das PRO-Angebot"
@@ -109,6 +161,9 @@ msgid "Check our PRO offering for the best experience and less trouble."
 msgstr ""
 "Testen Sie unser PRO-Angebot für ein noch besseres Erlebnis und weniger "
 "Stress."
+
+msgid "Find our integration documentation at"
+msgstr "Die Dokumentation finden Sie unter"
 
 msgid ""
 "Without PRO, you would need to configure all options right at the button - "

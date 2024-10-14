@@ -26,16 +26,55 @@ msgstr ""
 msgid "Calendar options"
 msgstr ""
 
+msgid "No"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Time Zone"
+msgstr ""
+
+msgid "Date/Time Input Scheme"
+msgstr ""
+
+msgid "All-day"
+msgstr ""
+
+msgid "Date + Time"
+msgstr ""
+
+msgid "Datetime"
+msgstr ""
+
+msgid "Start Date and Time"
+msgstr ""
+
+msgid "End Date and Time"
+msgstr ""
+
+msgid "Start Date"
+msgstr ""
+
+msgid "End Date"
+msgstr ""
+
+msgid "Start Time"
+msgstr ""
+
+msgid "End Time"
+msgstr ""
+
 msgid "Other attributes"
 msgstr ""
 
-msgid "Overrides"
+msgid "Additional overrides"
 msgstr ""
 
 msgid "Click here for documentation"
-msgstr ""
-
-msgid "With PRO active, only some attributes can be manipulated here. Check the docs for more details and try to adjust an event in the app first."
 msgstr ""
 
 msgid "Mind that the interaction with the button is blocked in edit mode"
@@ -56,7 +95,16 @@ msgstr ""
 msgid "Configuration Options"
 msgstr ""
 
+msgid "Documentation"
+msgstr ""
+
 msgid "Settings"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "Review"
 msgstr ""
 
 msgid "Load script unstyled"
@@ -65,7 +113,16 @@ msgstr ""
 msgid "This will use a smaller version of the script."
 msgstr ""
 
+msgid "PRO User"
+msgstr ""
+
+msgid "I am a PRO user. Hide the ads for it."
+msgstr ""
+
 msgid "Mind that elements will not be styled, if activated! You would need to use the customCss option to style them; or (if using the PRO version) activate the \"Load Async\" option at respective styles."
+msgstr ""
+
+msgid "Also mind that dynamic date overrides are not evaluated in edit mode"
 msgstr ""
 
 msgid "Discover the PRO offering"
@@ -84,6 +141,9 @@ msgid "This page holds global settings for Add to Calendar stuff."
 msgstr ""
 
 msgid "Check our PRO offering for the best experience and less trouble."
+msgstr ""
+
+msgid "Find our integration documentation at"
 msgstr ""
 
 msgid "Without PRO, you would need to configure all options right at the button - check %s for available options."

@@ -3,7 +3,7 @@
  * Plugin Name:       Add to Calendar Button
  * Plugin URI:        https://add-to-calendar-button.com
  * Description:       Create RSVP forms and beautiful buttons, where people can add events to their calendars.
- * Version:           2.3.9
+ * Version:           2.4.0
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            Jens Kuerschner
@@ -36,8 +36,9 @@ others as a managed service.
 defined('ABSPATH') or die("No script kiddies please!");
 
 // DEFINE CONSTANTS and rather global variables
-define( 'ATCB_SCRIPT_VERSION', '2.6.19' );
-define( 'ATCB_PLUGIN_VERSION', '2.3.9' );
+define( 'ATCB_SCRIPT_VERSION', '2.7.2' );
+define( 'ATCB_PLUGIN_VERSION', '2.4.0' );
+define( 'ATCB_ET_VERSION', '1.0.0' );
 $allowedAttributes = [ // we need to use lower case attributes here, since the shortcode makes all attrs lower case
   'prokey',
   'instance',
@@ -50,8 +51,10 @@ $allowedAttributes = [ // we need to use lower case attributes here, since the s
   'description',
   'startdate',
   'starttime',
+  'startdatetime',
   'enddate',
-  'endtime',
+  'endtime',  
+  'enddatetime',
   'timezone',
   'useusertz',
   'location',
@@ -119,6 +122,27 @@ $allowedAttributes = [ // we need to use lower case attributes here, since the s
 ];
 
 // SETUP STUFF
+register_activation_hook(__FILE__, 'atcb_installation');
+function atcb_installation() {
+  set_transient('atcb_load_script_once', true, 12 * HOUR_IN_SECONDS); // Expires after 12 hours
+}
+add_action('admin_enqueue_scripts', 'atcb_enqueue_script_once');
+function atcb_enqueue_script_once() {
+  if (get_transient('atcb_load_script_once')) {
+    wp_enqueue_script(
+      'add-to-calendar-et',
+      plugins_url('lib/atcba.js', __FILE__),
+      array(),
+      ATCB_ET_VERSION,
+      array( 
+        'strategy'  => 'async',
+        'in_footer' => false,
+      )
+    );
+    delete_transient('atcb_load_script_once');
+    // mind to replace m(f+"website-id") with "63a22fdc-3f95-4db6-b483-407756e34c2d" and m(f+"host-url") with "https://a.add-to-calendar-button.com" at the atcba.js
+  }
+}
 // include admin options page
 function enqueue_plugin_settings_css() {
   wp_enqueue_style('atcb-options-css', plugin_dir_url(__FILE__) . 'atcb-options.css');
@@ -157,7 +181,7 @@ function atcb_enqueue_script( $unstyle = false ) {
   wp_enqueue_script(
     'add-to-calendar-button',
     plugins_url('lib/' . $script, __FILE__),
-    '',
+    array(),
     ATCB_SCRIPT_VERSION,
     array( 
       'strategy'  => 'async',
@@ -169,36 +193,103 @@ function atcb_enqueue_script( $unstyle = false ) {
 add_action( 'admin_enqueue_scripts', 'atcb_enqueue_script' );
 // ...on the website
 $atcb_settings_options = get_option( 'atcb_global_settings' );
-$unstyle = $atcb_settings_options && $atcb_settings_options['atcb_go_unstyle'] && ($atcb_settings_options['atcb_go_unstyle'] === 'true' || $atcb_settings_options['atcb_go_unstyle'] === true) ? true : false;
+$unstyle = $atcb_settings_options && isset($atcb_settings_options['atcb_go_unstyle']) && ($atcb_settings_options['atcb_go_unstyle'] === 'true' || $atcb_settings_options['atcb_go_unstyle'] === true) ? true : false;
 add_action( 'wp_enqueue_scripts', function () use ($unstyle) {
   atcb_enqueue_script($unstyle);
 } );
 
+// Function to check whether a value is an allowed attribute
+function atcb_is_allowed_attribute( $value ) {
+  global $allowedAttributes;
+  // remove a potential prefix (mf-, sc-, acf-)
+  $value = preg_replace('/^(mf|sc|acf)-/', '', $value);
+  return in_array(strtolower($value), $allowedAttributes, true);
+}
+
 // SHORTCODE
 function atcb_shortcode_func( $atts ) {
-  global $allowedAttributes;
   $output = '<add-to-calendar-button';
+  // check if $atts includes "prokey"
+  $prokey_given = (isset($atts['prokey']) || isset($atts['proKey'])) ? true : false;
+  $dynamic_override = false;
+  // evaluate the attributes
   foreach ( $atts as $key => $value ) {
     if ( is_numeric($key) ) {
       // do not process any unknown attributes to prevent XSS
-      if ( !in_array(strtolower($value), $allowedAttributes, true) ) {
+      if ( !atcb_is_allowed_attribute($value) ) {
         continue;
       }
       $output .= ' ' . esc_attr( $value );
     } else {
       // do not process any unknown attributes to prevent XSS
-      if ( !in_array(strtolower($key), $allowedAttributes, true) ) {
+      if ( !atcb_is_allowed_attribute($key) ) {
         continue;
       }
       $valueContent = esc_attr($value);
-      // replace "{{sc_start}}", "{{sc_end}}" with "[" and "]" to allow for nested shortcodes
-      $valueContent = str_replace('{sc_start}', '[', $valueContent);
-      $valueContent = str_replace('{sc_end}', ']', $valueContent);
-      $valueStr = do_shortcode($valueContent);
+      if ($prokey_given) {
+        // if the key is prefixed with mf-, get the value from the meta field
+        if ( preg_match('/^mf-/', $key, $matches) ) {
+          $postId = get_the_ID();
+          $parsed = get_post_meta($postId, $valueContent, true);
+          if ($parsed === '') continue;
+          $valueStr = $parsed;
+          $dynamic_override = true;
+        } else
+        // if the key is prefixed with acf-, get the value from the ACF field
+        if ( preg_match('/^acf-/', $key, $matches) ) {
+          $parsed = get_field($valueContent, false, true, true);
+          if ($parsed === '') continue;
+          $valueStr = $parsed;
+          $dynamic_override = true;
+        } else
+        // if the key is prefixed with sc-, get the value from the shortcode
+        if ( preg_match('/^sc-/', $key, $matches) ) {
+          $valueContent = '[' . $valueContent . ']';
+          $parsed = do_shortcode( $valueContent );
+          if ($parsed === '') continue;
+          $valueStr = $parsed;
+          $dynamic_override = true;
+        } else {
+          $valueStr = $valueContent;
+        }
+        // remove any prefix (mf-, sc-, acf-)
+        $key = preg_replace('/^(mf|sc|acf)-/', '', $key);
+        // if key is startdatetime or enddatetime, we split its value by "T" and set date and time separately
+        if ($key === 'startdatetime' || $key === 'enddatetime') {
+          $valueStrParts = strpos($valueStr, 'T') !== false ? explode('T', $valueStr) : explode(' ', $valueStr);
+          // if valueStrParts only has 1 element, continue
+          if (count($valueStrParts) === 1) continue;
+          // set date and time manually, but only if it matches the format YYY-MM-DD, HH:MM (otherwise, skip)
+          $key_prefix = $key === 'startdatetime' ? 'start' : 'end';
+          // strip valueStrParts[0] to 10 chars, valueStrParts[1] to 5 chars
+          $valueStrParts[0] = substr($valueStrParts[0], 0, 10);
+          $valueStrParts[1] = substr($valueStrParts[1], 0, 5);
+          if (preg_match('/^\d\d\d\d-\d\d-\d\d$/', $valueStrParts[0]) && preg_match('/^\d\d:\d\d$/', $valueStrParts[1])) {
+            $output .= ' ' . $key_prefix . 'date="' . $valueStrParts[0] . '" ' . $key_prefix . 'time="' . $valueStrParts[1] . '"';
+          }
+          continue;
+        }
+      } else {
+        // replace "{{sc_start}}", "{{sc_end}}" with "[" and "]" to allow for nested shortcodes - DEPRECATED, but left active for backwards compatibility!
+        $valueContent = str_replace('{sc_start}', '[', $valueContent);
+        $valueContent = str_replace('{sc_end}', ']', $valueContent);
+        $valueStr = do_shortcode($valueContent);
+      }
       // strip quotes and sanitize
-      $valueStr = str_replace('"', '', $valueStr);
+      $valueStr = str_replace('"', '&quot;', $valueStr);
+      // replace [ with { and ] with } to avoid conflicts with the shortcode
+      $valueStr = str_replace('[', '{', $valueStr);
+      $valueStr = str_replace(']', '}', $valueStr);
+      // strip tags and sanitize
       $valueStr = wp_strip_all_tags($valueStr, true);
       $output .= ' ' . esc_attr( $key ) . '="' . esc_attr( $valueStr ) . '"';
+    }
+  }
+  // if $prokey_given, we set the prooverride, proxy, and debug (if admin) attribute
+  if ($dynamic_override) {
+    $output .= ' prooverride proxy="false"';
+    if (is_admin()) {
+      $output .= ' debug';
     }
   }
   $output .= '></add-to-calendar-button>';
@@ -213,6 +304,9 @@ function atcb_register_block() {
   wp_register_script( 'atcb-block', plugins_url('build/block.js', __FILE__), array('wp-blocks', 'wp-block-editor', 'wp-element'), ATCB_PLUGIN_VERSION, true );
   // register the actual block
   register_block_type( 'add-to-calendar/button', array('editor_script' => 'atcb-block') );
+  // prepare isPro info
+  $atcb_settings_options = get_option('atcb_global_settings');
+  $is_pro_active = $atcb_settings_options && isset($atcb_settings_options['atcb_pro_active']) && ($atcb_settings_options['atcb_pro_active'] === 'true' || $atcb_settings_options['atcb_pro_active'] === true) ? true : false;
   // add i18n
   load_plugin_textdomain( 'add-to-calendar-button', false, dirname(plugin_basename( __FILE__ )) . '/languages' );
   $locale = get_Locale();
@@ -230,12 +324,26 @@ function atcb_register_block() {
         'k4' => __("Appointment", 'add-to-calendar-button')
       ],
       'label_name' => __("Name", 'add-to-calendar-button'),
+      'label_location' => __("Location", 'add-to-calendar-button'),
+      'label_description' => __("Description", 'add-to-calendar-button'),
+      'label_timezone' => __("Time Zone", 'add-to-calendar-button'),
       'label_options' => __("Calendar options", 'add-to-calendar-button'),
       'label_others' => __("Other attributes", 'add-to-calendar-button'),
-      'label_override' => __("Overrides", 'add-to-calendar-button'),
+      'label_override' => __("Additional overrides", 'add-to-calendar-button'),
+      'label_no' => __('No', "add-to-calendar-button"),
+      'label_datetime_input' => __('Date/Time Input Scheme', "add-to-calendar-button"),
+      'label_allday' => __('All-day', "add-to-calendar-button"),
+      'label_date_plus_time' => __('Date + Time', "add-to-calendar-button"),
+      'label_datetime' => __('Datetime', "add-to-calendar-button"),
+      'label_startdatetime' => __('Start Date and Time', "add-to-calendar-button"),
+      'label_enddatetime' => __('End Date and Time', "add-to-calendar-button"),
+      'label_startdate' => __('Start Date', "add-to-calendar-button"),
+      'label_enddate' => __('End Date', "add-to-calendar-button"),
+      'label_starttime' => __('Start Time', "add-to-calendar-button"),
+      'label_endtime' => __('End Time', "add-to-calendar-button"),
       'help' => __("Click here for documentation", 'add-to-calendar-button'),
-      'override_note' => __("With PRO active, only some attributes can be manipulated here. Check the docs for more details and try to adjust an event in the app first.", 'add-to-calendar-button'),
-      'note' => __("Mind that the interaction with the button is blocked in edit mode", 'add-to-calendar-button')
+      'note' => __("Mind that the interaction with the button is blocked in edit mode", 'add-to-calendar-button'),
+      'note_dynamic' => __("Also mind that dynamic date overrides are not evaluated in edit mode", 'add-to-calendar-button')
     ]
   );
   // transmit further settings
@@ -248,7 +356,8 @@ function atcb_register_block() {
     'atcb-block',
     'atcbSettings',
     [
-      'allowedAttributes' => $allowedAttributes,
+      'isProActive' => $is_pro_active,
+      'allowedAttributes' => $allowedAttributes, // this is a global variable
       'defaultTimeZone' => $tz,
       'defaultTitle' => __("My Event Title", 'add-to-calendar-button'),
     ]

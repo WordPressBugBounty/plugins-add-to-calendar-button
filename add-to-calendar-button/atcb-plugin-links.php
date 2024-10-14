@@ -39,8 +39,14 @@ function atcb_plugin_details_links( $links, $plugin_file_name ) {
     } else {
       $language .= '/';
     }
-    $links[] = '<a href="https://add-to-calendar-button.com/' . $language . 'configuration" target="_blank" rel="noopener">' . __("Configuration Options", 'add-to-calendar-button') . '</a>';
-    $links[] = '<a href="https://add-to-calendar-pro.com/' . $language . '" target="_blank" rel="noopener">' . __("Go PRO", 'add-to-calendar-button') . '</a>';
+    $atcb_settings_options = get_option( 'atcb_global_settings' );
+    $is_pro = $atcb_settings_options && $atcb_settings_options['atcb_pro_active'] && ($atcb_settings_options['atcb_pro_active'] === 'true' || $atcb_settings_options['atcb_pro_active'] === true) ? true : false;
+    if ( $is_pro === true ) {
+      $links[] = '<a href="https://docs.add-to-calendar-pro.com/' . $language . 'integration/wordpress" target="_blank" rel="noopener">' . __("Documentation", 'add-to-calendar-button') . '</a>';
+    } else {
+      $links[] = '<a href="https://add-to-calendar-button.com/' . $language . 'configuration" target="_blank" rel="noopener">' . __("Configuration Options", 'add-to-calendar-button') . '</a>';
+      $links[] = '<a href="https://add-to-calendar-pro.com/' . $language . '" target="_blank" rel="noopener">' . __("Go PRO", 'add-to-calendar-button') . '</a>';
+    }
   }
   return $links;
 }

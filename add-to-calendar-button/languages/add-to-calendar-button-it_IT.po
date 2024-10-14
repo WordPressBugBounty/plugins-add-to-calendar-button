@@ -1,10 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Add to Calendar Button Plugin\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/add-to-calendar-"
-"button\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/add-to-calendar-button\n"
 "POT-Creation-Date: 2023-01-05 10:23+0100\n"
-"PO-Revision-Date: 2023-12-19 20:35+0100\n"
+"PO-Revision-Date: 2024-10-14 23:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -28,26 +27,59 @@ msgstr "Nome"
 msgid "Calendar options"
 msgstr "Opzioni del calendario"
 
+msgid "No"
+msgstr "No"
+
+msgid "Location"
+msgstr "Luogo"
+
+msgid "Description"
+msgstr "Descrizione"
+
+msgid "Time Zone"
+msgstr "Fuso orario"
+
+msgid "Date/Time Input Scheme"
+msgstr "Schema di inserimento data/ora"
+
+msgid "All-day"
+msgstr "Tutto il giorno"
+
+msgid "Date + Time"
+msgstr "Data + Ora"
+
+msgid "Datetime"
+msgstr "Data e ora"
+
+msgid "Start Date and Time"
+msgstr "Data e ora di inizio"
+
+msgid "End Date and Time"
+msgstr "Data e ora di fine"
+
+msgid "Start Date"
+msgstr "Data di inizio"
+
+msgid "End Date"
+msgstr "Data di fine"
+
+msgid "Start Time"
+msgstr "Ora di inizio"
+
+msgid "End Time"
+msgstr "Ora di fine"
+
 msgid "Other attributes"
 msgstr "Altri attributi"
 
-msgid "Overrides"
-msgstr "Opzioni di sovrascrittura"
+msgid "Additional overrides"
+msgstr "Sovrascrivere altre opzioni"
 
 msgid "Click here for documentation"
 msgstr "Fai clic qui per la documentazione"
 
-msgid ""
-"With PRO active, only some attributes can be manipulated here. Check the "
-"docs for more details and try to adjust an event in the app first."
-msgstr ""
-"Con PRO attivo, solo alcuni attributi possono essere manipolati qui. Per "
-"maggiori dettagli, consultare la documentazione e provare prima a regolare "
-"un evento nell'applicazione."
-
 msgid "Mind that the interaction with the button is blocked in edit mode"
-msgstr ""
-"Nota che l'interazione con il pulsante è bloccata in modalità di modifica"
+msgstr "Nota che l'interazione con il pulsante è bloccata in modalità di modifica"
 
 msgid "Calendar"
 msgstr "Calendario"
@@ -64,8 +96,17 @@ msgstr "Appuntamento"
 msgid "Configuration Options"
 msgstr "Configurazione"
 
+msgid "Documentation"
+msgstr "Documentazione"
+
 msgid "Settings"
 msgstr "Impostazioni"
+
+msgid "Support"
+msgstr ""
+
+msgid "Review"
+msgstr ""
 
 msgid "Load script unstyled"
 msgstr "Caricare lo script senza stile"
@@ -73,25 +114,32 @@ msgstr "Caricare lo script senza stile"
 msgid "This will use a smaller version of the script."
 msgstr "In questo modo si utilizzerà una versione ridotta dello script."
 
+msgid "PRO User"
+msgstr "PRO User"
+
+msgid "I am a PRO user. Hide the ads for it."
+msgstr "Io uso la versione PRO. Nasconde le informazioni."
+
 msgid ""
-"Mind that elements will not be styled, if activated! You would need to use "
-"the customCss option to style them; or (if using the PRO version) activate "
-"the \"Load Async\" option at respective styles."
+"Mind that elements will not be styled, if activated! You would need to use the customCss option to style "
+"them; or (if using the PRO version) activate the \"Load Async\" option at respective styles."
 msgstr ""
-"Tenere presente che gli elementi non saranno stilizzati, se attivati! È "
-"necessario utilizzare l'opzione CustomCss per stilizzarli; oppure (se si "
-"utilizza la versione PRO) attivare l'opzione \"Load Async\" nei rispettivi "
-"stili."
+"Tenere presente che gli elementi non saranno stilizzati, se attivati! È necessario utilizzare l'opzione "
+"CustomCss per stilizzarli; oppure (se si utilizza la versione PRO) attivare l'opzione \"Load Async\" nei "
+"rispettivi stili."
+
+msgid "Also mind that dynamic date overrides are not evaluated in edit mode"
+msgstr "È importante notare che le sostituzioni di date dinamiche non vengono valutate in modalità di modifica"
 
 msgid "Discover the PRO offering"
 msgstr "Scoprite l'offerta PRO"
 
 msgid ""
-"More functionality (like RSVP) and way less trouble thanks to managed ics "
-"file hosting, no-code customization, and more."
+"More functionality (like RSVP) and way less trouble thanks to managed ics file hosting, no-code "
+"customization, and more."
 msgstr ""
-"Più funzionalità (come RSVP) e meno problemi grazie all'hosting gestito dei "
-"file ics, alla personalizzazione senza codice e altro ancora."
+"Più funzionalità (come RSVP) e meno problemi grazie all'hosting gestito dei file ics, alla personalizzazione "
+"senza codice e altro ancora."
 
 msgid "Learn more"
 msgstr "Per saperne di più"
@@ -100,20 +148,19 @@ msgid "Go PRO"
 msgstr "Go PRO"
 
 msgid "This page holds global settings for Add to Calendar stuff."
-msgstr ""
-"Questa pagina contiene le impostazioni globali di Aggiungi al calendario."
+msgstr "Questa pagina contiene le impostazioni globali di Aggiungi al calendario."
 
 msgid "Check our PRO offering for the best experience and less trouble."
-msgstr ""
-"Controllate la nostra offerta PRO per avere la migliore esperienza e meno "
-"problemi."
+msgstr "Controllate la nostra offerta PRO per avere la migliore esperienza e meno problemi."
+
+msgid "Find our integration documentation at"
+msgstr "La documentazione relativa all'integrazione è disponibile all'indirizzo"
 
 msgid ""
-"Without PRO, you would need to configure all options right at the button - "
-"check %s for available options."
+"Without PRO, you would need to configure all options right at the button - check %s for available options."
 msgstr ""
-"Senza PRO, è necessario configurare tutte le opzioni direttamente dal "
-"pulsante - controllare %s per le opzioni disponibili."
+"Senza PRO, è necessario configurare tutte le opzioni direttamente dal pulsante - controllare %s per le "
+"opzioni disponibili."
 
 #~ msgid "World Wide Web"
 #~ msgstr "World Wide Web"

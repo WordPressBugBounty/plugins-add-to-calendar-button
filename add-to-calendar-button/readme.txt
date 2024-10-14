@@ -68,9 +68,7 @@ In case you want to go all-in, you can also manipulate all kinds of colors and f
 
 = 📄 ABOUT THE LICENSE =
 
-This plugin is licensed under the GPLv3 license (GNU General Public License 3).
-
-However, mind that the script to actually generate the Add to Calendar Button uses the [Elastic License 2.0 (ELv2)](https://github.com/add2cal/add-to-calendar-button/blob/main/LICENSE.txt)!
+Mind that the script to actually generate the Add to Calendar Button uses the [Elastic License 2.0 (ELv2)](https://github.com/add2cal/add-to-calendar-button/blob/main/LICENSE.txt)!
 
 This usually comes with no restrictions for you, but it forbids you to rework the core script and provide the product (generating an add-to-calendar-button) to others as a managed service.
 
@@ -100,6 +98,29 @@ Have a look at the [official documentation by clicking here](https://add-to-cale
 
 If you go for the PRO version, you would configure everything directly in the Add to Calendar PRO app, while you only need to provide the so called "proKey" in the shortcode or block.
 
+= Can I connect it to meta fields, ACF, or other plugins? =
+
+When using our PRO offering, you can do so!
+
+You would create an event with just any data at our app, link it via its ProKey and then be able to link the core data fields with your meta fields, ACF fields, or shortcodes.
+
+When using the Block, the setup at WordPress is quite straightforward by setting the "Dynamic Date Override" option. When using our shortcode, you would need to use the "data" attribute to link the data fields. The following attributes are available:
+
+* startdate ("YYYY-MM-DD")
+* starttime ("HH:MM")
+* enddate ("YYYY-MM-DD")
+* endtime ("HH:MM")
+* startdatetime ("YYYY-MM-DDTHH:MM" or "YYYY-MM-DD HH:MM")
+* enddatetime ("YYYY-MM-DDTHH:MM" or "YYYY-MM-DD HH:MM")
+* name
+* description
+* location
+* timezone
+
+Prepend with mf-* if you want to link to a meta field, acf-* for ACF fields, and sc-* if you want to use a shortcode. Like "acf-startdate" or "sc-name".
+
+At the event on Add to Calendar PRO, consider setting it to "private". This way, you do not risk to have conflicting data. The only data that is synced in this case, would be style information or advanced date stuff like recurrence.
+
 = Can I adjust the look of the button? =
 
 Yes, you can.
@@ -107,14 +128,6 @@ Yes, you can.
 First of all, there are a lot of easy to access options for the most common cases, documented at the [official documentation](https://add-to-calendar-button.com/configuration).
 
 In case you want to go even further with customizing the look of the Add to Calendar Button, you have multiple expert options. They are described in detail at the [advanced usage section of the documentation](https://add-to-calendar-button.com/advanced-use).
-
-= Can I use a Shortcode inside the Shortcode? =
-
-Yes, you can.
-
-Mind that you can only replace the values of the attributes with a shortcode, not the attribute names.
-
-You also need to use {sc_start}xxx{sc_end} instead of [xxx] as scheme!
 
 = Does it also come with RSVP forms? =
 
@@ -137,6 +150,15 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 2.4 =
+* ⚠️ Attention: old override settings will get lost on update and block recovery as we are now using a more robust override system for PRO buttons
+* New option to dynamically link data to meta fields, ACF, or shortcodes (PRO only)
+* Showing open seats on RSVP
+* Optimized subscription handling as Google Calendar App on Android does no longer support subscribing to a url atm
+* Better organizer email validation
+* securing regex and date parsing optimization
+* Bug Fixes
+
 = 2.3 =
 * supporting shortcode inside the shortcode for attribute values
 * preparing for WordPress 6.5

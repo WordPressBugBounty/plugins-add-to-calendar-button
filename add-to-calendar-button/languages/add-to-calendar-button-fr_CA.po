@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/add-to-calendar-"
 "button\n"
 "POT-Creation-Date: 2023-01-05 10:23+0100\n"
-"PO-Revision-Date: 2023-12-19 20:39+0100\n"
+"PO-Revision-Date: 2024-10-14 23:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_CA\n"
@@ -28,22 +28,56 @@ msgstr "Nom"
 msgid "Calendar options"
 msgstr "Options de calendrier"
 
+msgid "No"
+msgstr "Non"
+
+msgid "Location"
+msgstr "Lieu"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Time Zone"
+msgstr "Fuseau horaire"
+
+msgid "Date/Time Input Scheme"
+msgstr "Schéma de saisie de date/heure"
+
+msgid "All-day"
+msgstr "Toute la journée"
+
+msgid "Date + Time"
+msgstr "Date + Heure"
+
+msgid "Datetime"
+msgstr "Date et heure"
+
+msgid "Start Date and Time"
+msgstr "Date et heure de début"
+
+msgid "End Date and Time"
+msgstr "Date et heure de fin"
+
+msgid "Start Date"
+msgstr "Date de début"
+
+msgid "End Date"
+msgstr "Date de fin"
+
+msgid "Start Time"
+msgstr "Heure de début"
+
+msgid "End Time"
+msgstr "Heure de fin"
+
 msgid "Other attributes"
 msgstr "Autres attributs"
 
-msgid "Overrides"
-msgstr "Remplacer les options"
+msgid "Additional overrides"
+msgstr "Remplacer d'autres options"
 
 msgid "Click here for documentation"
 msgstr "Cliquez ici pour la documentation"
-
-msgid ""
-"With PRO active, only some attributes can be manipulated here. Check the "
-"docs for more details and try to adjust an event in the app first."
-msgstr ""
-"Avec PRO actif, seuls certains attributs peuvent être manipulés ici. "
-"Consultez la documentation pour plus de détails et essayez d'abord d'ajuster "
-"un événement dans l'application."
 
 msgid "Mind that the interaction with the button is blocked in edit mode"
 msgstr "Attention, l'interaction avec le bouton est bloquée en mode édition"
@@ -63,8 +97,17 @@ msgstr "Rendez-vous"
 msgid "Configuration Options"
 msgstr "Configuration"
 
+msgid "Documentation"
+msgstr "Documentation"
+
 msgid "Settings"
 msgstr "Paramètres"
+
+msgid "Support"
+msgstr ""
+
+msgid "Review"
+msgstr ""
 
 msgid "Load script unstyled"
 msgstr "Charger un script non stylisé"
@@ -72,21 +115,30 @@ msgstr "Charger un script non stylisé"
 msgid "This will use a smaller version of the script."
 msgstr "Cela permet d'utiliser une version plus petite du script."
 
+msgid "PRO User"
+msgstr "PRO User"
+
+msgid "I am a PRO user. Hide the ads for it."
+msgstr "J'utilise la version PRO. Masque les indications qui y figurent."
+
 msgid ""
-"Mind that elements will not be styled, if activated! You would need to use "
-"the customCss option to style them; or (if using the PRO version) activate "
-"the \"Load Async\" option at respective styles."
+"Mind that elements will not be styled, if activated! You would need to use the "
+"customCss option to style them; or (if using the PRO version) activate the "
+"\"Load Async\" option at respective styles."
 msgstr ""
-"Notez que les éléments ne seront pas stylisés s'ils sont activés ! Vous "
-"devrez utiliser l'option customCss pour les styliser ; ou (si vous utilisez "
-"la version PRO) activer l'option \"Load Async\" dans les styles respectifs."
+"Notez que les éléments ne seront pas stylisés s'ils sont activés ! Vous devrez "
+"utiliser l'option customCss pour les styliser ; ou (si vous utilisez la version "
+"PRO) activer l'option \"Load Async\" dans les styles respectifs."
+
+msgid "Also mind that dynamic date overrides are not evaluated in edit mode"
+msgstr "Les remplacements de date dynamique ne sont pas évalués en mode édition"
 
 msgid "Discover the PRO offering"
 msgstr "Découvrez l'offre PRO"
 
 msgid ""
-"More functionality (like RSVP) and way less trouble thanks to managed ics "
-"file hosting, no-code customization, and more."
+"More functionality (like RSVP) and way less trouble thanks to managed ics file "
+"hosting, no-code customization, and more."
 msgstr ""
 "Plus de fonctionnalités (comme RSVP) et beaucoup moins de problèmes grâce à "
 "l'hébergement géré des fichiers ics, à la personnalisation sans code, etc."
@@ -103,15 +155,17 @@ msgstr ""
 
 msgid "Check our PRO offering for the best experience and less trouble."
 msgstr ""
-"Consultez notre offre PRO pour une meilleure expérience et moins de "
-"problèmes."
+"Consultez notre offre PRO pour une meilleure expérience et moins de problèmes."
+
+msgid "Find our integration documentation at"
+msgstr "Vous trouverez notre documentation sur l'intégration à l'adresse suivante"
 
 msgid ""
 "Without PRO, you would need to configure all options right at the button - "
 "check %s for available options."
 msgstr ""
-"Sans PRO, vous devriez configurer toutes les options directement sur le "
-"bouton - vérifiez %s pour les options disponibles."
+"Sans PRO, vous devriez configurer toutes les options directement sur le bouton "
+"- vérifiez %s pour les options disponibles."
 
 #~ msgid "World Wide Web"
 #~ msgstr "World Wide Web"
