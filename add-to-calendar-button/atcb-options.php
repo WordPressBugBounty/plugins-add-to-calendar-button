@@ -66,7 +66,7 @@ class ATCBSettingsPage {
     $proLink = 'https://add-to-calendar-pro.com/' . $language;
     $is_pro = isset($this->options['atcb_pro_active']) && ($this->options['atcb_pro_active'] === 'true' || $this->options['atcb_pro_active'] === true) ? true : false;
     ?>
-    <div class="wrap">
+    <div class="wrap atcb-settings-wrap">
       <h2 class="screen-reader-text"><?php esc_html_e( $this->plugin_title ); ?></h2>
       <p><?php echo __("This page holds global settings for Add to Calendar stuff.", 'add-to-calendar-button') ?></p>
       <?php if ( $is_pro === true ) { ?>

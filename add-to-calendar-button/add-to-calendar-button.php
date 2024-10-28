@@ -3,7 +3,7 @@
  * Plugin Name:       Add to Calendar Button
  * Plugin URI:        https://add-to-calendar-button.com
  * Description:       Create RSVP forms and beautiful buttons, where people can add events to their calendars.
- * Version:           2.4.0
+ * Version:           2.4.1
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            Jens Kuerschner
@@ -37,7 +37,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 // DEFINE CONSTANTS and rather global variables
 define( 'ATCB_SCRIPT_VERSION', '2.7.2' );
-define( 'ATCB_PLUGIN_VERSION', '2.4.0' );
+define( 'ATCB_PLUGIN_VERSION', '2.4.1' );
 define( 'ATCB_ET_VERSION', '1.0.0' );
 $allowedAttributes = [ // we need to use lower case attributes here, since the shortcode makes all attrs lower case
   'prokey',
@@ -128,7 +128,8 @@ function atcb_installation() {
 }
 add_action('admin_enqueue_scripts', 'atcb_enqueue_script_once');
 function atcb_enqueue_script_once() {
-  if (get_transient('atcb_load_script_once')) {
+  $atcb_settings_options = get_option( 'atcb_global_settings' );
+  if (get_transient('atcb_load_script_once') || (isset($_GET['page']) && $_GET['page'] === 'add-to-calendar-setting' && !isset($atcb_settings_options['atcb_init']))) {
     wp_enqueue_script(
       'add-to-calendar-et',
       plugins_url('lib/atcba.js', __FILE__),
@@ -140,9 +141,14 @@ function atcb_enqueue_script_once() {
       )
     );
     delete_transient('atcb_load_script_once');
+    if (!isset($atcb_settings_options['atcb_init'])) {
+      $atcb_settings_options['atcb_init'] = true;
+      update_option('atcb_global_settings', $atcb_settings_options);
+    }
     // mind to replace m(f+"website-id") with "63a22fdc-3f95-4db6-b483-407756e34c2d" and m(f+"host-url") with "https://a.add-to-calendar-button.com" at the atcba.js
   }
 }
+
 // include admin options page
 function enqueue_plugin_settings_css() {
   wp_enqueue_style('atcb-options-css', plugin_dir_url(__FILE__) . 'atcb-options.css');
