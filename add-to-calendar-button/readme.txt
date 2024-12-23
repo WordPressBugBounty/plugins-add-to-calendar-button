@@ -4,7 +4,7 @@ Tags: calendar, button, event, widget, rsvp
 Stable tag: 9
 Requires at least: 5.7
 Requires PHP: 7.4
-Tested up to: 6.6
+Tested up to: 6.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -150,6 +150,10 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 2.5 =
+* Ukranian localization added
+* Even better time zone management
+
 = 2.4 =
 * ⚠️ Attention: old override settings will get lost on update and block recovery as we are now using a more robust override system for PRO buttons
 * New option to dynamically link data to meta fields, ACF, or shortcodes (PRO only)
