@@ -119,6 +119,8 @@ When using the Block, the setup at WordPress is quite straightforward by setting
 
 Prepend with mf-* if you want to link to a meta field, acf-* for ACF fields, and sc-* if you want to use a shortcode. Like "acf-startdate" or "sc-name".
 
+You can use wp-title to link the field to the page title - no matter whether you go for MF or ACF.
+
 At the event on Add to Calendar PRO, consider setting it to "private". This way, you do not risk to have conflicting data. The only data that is synced in this case, would be style information or advanced date stuff like recurrence.
 
 = Can I adjust the look of the button? =

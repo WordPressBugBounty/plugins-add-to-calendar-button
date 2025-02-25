@@ -3,7 +3,7 @@
  * Plugin Name:       Add to Calendar Button
  * Plugin URI:        https://add-to-calendar-button.com
  * Description:       Create RSVP forms and beautiful buttons, where people can add events to their calendars.
- * Version:           2.5.1
+ * Version:           2.5.2
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            Jens Kuerschner
@@ -36,8 +36,8 @@ others as a managed service.
 defined('ABSPATH') or die("No script kiddies please!");
 
 // DEFINE CONSTANTS and rather global variables
-define( 'ATCB_SCRIPT_VERSION', '2.8.1' );
-define( 'ATCB_PLUGIN_VERSION', '2.5.1' );
+define( 'ATCB_SCRIPT_VERSION', '2.8.3' );
+define( 'ATCB_PLUGIN_VERSION', '2.5.2' );
 define( 'ATCB_ET_VERSION', '1.0.0' );
 $allowedAttributes = [ // we need to use lower case attributes here, since the shortcode makes all attrs lower case
   'prokey',
@@ -235,17 +235,29 @@ function atcb_shortcode_func( $atts ) {
       if ($prokey_given) {
         // if the key is prefixed with mf-, get the value from the meta field
         if ( preg_match('/^mf-/', $key, $matches) ) {
-          $postId = get_the_ID();
-          $parsed = get_post_meta($postId, $valueContent, true);
-          if ($parsed === '') continue;
-          $valueStr = $parsed;
+          // for value wp-title, we get the title of the page
+          if ($valueContent === 'wp-title') {
+            $valueStr = get_the_title();
+          } else {
+            // for other values, we get the value from the meta field
+            $postId = get_the_ID();
+            $parsed = get_post_meta($postId, $valueContent, true);
+            if ($parsed === '') continue;
+            $valueStr = $parsed;
+          }
           $dynamic_override = true;
         } else
         // if the key is prefixed with acf-, get the value from the ACF field
         if ( preg_match('/^acf-/', $key, $matches) ) {
-          $parsed = get_field($valueContent, false, true, true);
-          if ($parsed === '') continue;
-          $valueStr = $parsed;
+          // for value wp-title, we get the title of the page
+          if ($valueContent === 'wp-title') {
+            $valueStr = get_the_title();
+          } else {
+            // for other values, we get the value from the meta field
+            $parsed = get_field($valueContent, false, true, true);
+            if ($parsed === '') continue;
+            $valueStr = $parsed;
+          }
           $dynamic_override = true;
         } else
         // if the key is prefixed with sc-, get the value from the shortcode
@@ -255,6 +267,14 @@ function atcb_shortcode_func( $atts ) {
           if ($parsed === '') continue;
           $valueStr = $parsed;
           $dynamic_override = true;
+        } else
+        // if the key is prefixed with wp-, get the value from the WP page
+        if ( preg_match('/^wp-/', $key, $matches) ) {
+          // if it is wp-title, use the title of the page
+          if ($valueContent === 'wp-title') {
+            $valueStr = get_the_title();
+            $dynamic_override = true;
+          }
         } else {
           $valueStr = $valueContent;
         }
