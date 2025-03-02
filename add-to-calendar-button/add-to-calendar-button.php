@@ -3,7 +3,7 @@
  * Plugin Name:       Add to Calendar Button
  * Plugin URI:        https://add-to-calendar-button.com
  * Description:       Create RSVP forms and beautiful buttons, where people can add events to their calendars.
- * Version:           2.5.4
+ * Version:           2.5.5
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            Jens Kuerschner
@@ -37,7 +37,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 // DEFINE CONSTANTS and rather global variables
 define( 'ATCB_SCRIPT_VERSION', '2.8.5' );
-define( 'ATCB_PLUGIN_VERSION', '2.5.4' );
+define( 'ATCB_PLUGIN_VERSION', '2.5.5' );
 define( 'ATCB_ET_VERSION', '1.0.0' );
 $allowedAttributes = [ // we need to use lower case attributes here, since the shortcode makes all attrs lower case
   'prokey',
@@ -145,7 +145,7 @@ function atcb_enqueue_script_once() {
       $atcb_settings_options['atcb_init'] = true;
       update_option('atcb_global_settings', $atcb_settings_options);
     }
-    // mind to replace m(f+"website-id") with "63a22fdc-3f95-4db6-b483-407756e34c2d" and m(f+"host-url") with "https://a.add-to-calendar-button.com" at the atcba.js
+    // mind to replace m(f+"website-id") with "63a22fdc-3f95-4db6-b483-407756e34c2d" and m(f+"host-url") with "https://a.add-to-calendar-pro.com" at the atcba.js
   }
 }
 
