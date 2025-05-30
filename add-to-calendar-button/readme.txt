@@ -1,10 +1,10 @@
 === Add to Calendar Button ===
 Contributors: add2cal, jekuer
 Tags: calendar, button, event, widget, rsvp
-Stable tag: 9
+Stable tag: 2.6.0
 Requires at least: 5.7
 Requires PHP: 7.4
-Tested up to: 6.7
+Tested up to: 6.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -20,13 +20,6 @@ All of this with just a few clicks and highly customizable, using the popular Ad
 
 Check out the [official website](https://add-to-calendar-button.com) for a comprehensive demo and overview.
 
-= 🚀 GO PRO =
-With the PRO version, you can even go further. Use the same button to let people RSVP to your events - fully managed.
-
-At the same time, setting up and managing Add to Calendar Buttons and events becomes even more convenient.
-
-Learn more at [add-to-calendar-pro.com](https://add-to-calendar-pro.com).
-
 = 🛠️ INTEGRATED IN SECONDS =
 You can either use the shortcode [add-to-calendar-button] or the Gutenberg Block.
 
@@ -35,6 +28,16 @@ You can either use the shortcode [add-to-calendar-button] or the Gutenberg Block
 In the no-PRO case, you simply place the necessary attributes directly in the shortcode, or at the Gutenberg Block settings.
 
 (Mind that you cannot use '[' and ']' characters, when going for the shortcode option! For content formatting, you can use {'{'}xxx{'}'} instead of [xxx] there.)
+
+= 🚀 GO PRO =
+Go even further with the PRO version... 
+
+→ Manage all details and styling via a convenient web app. 
+→ Use the same button to let people RSVP to your events - fully managed. 
+→ Get auto-generated landing pages and shareable links for your events. 
+→ Have better guidance for your users, when they add events to their calendars and things don't go as expected.
+
+👉 Learn more at [add-to-calendar-pro.com](https://add-to-calendar-pro.com).
 
 = ✨ SUPPORTED CALENDARS =
 
@@ -152,6 +155,10 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 2.6 =
+* Supporting new "simple" style
+* Better ics generation
+
 = 2.5 =
 * Ukranian localization added
 * Even better time zone management

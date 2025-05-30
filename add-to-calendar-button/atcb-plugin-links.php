@@ -3,7 +3,7 @@
  * This File is part of the Plugin 'Add to Calendar Button' (https://add-to-calendar-button.com)
  * Create RSVP forms and beautiful buttons, where people can add events to their calendars.
  *
- * Author: Jens Kuerschner
+ * Author: Add to Calendar PRO, Jens Kuerschner
  * Author URI: https://add-to-calendar-pro.com
  *
  */
