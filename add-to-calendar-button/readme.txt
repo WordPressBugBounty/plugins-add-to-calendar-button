@@ -1,7 +1,7 @@
 === Add to Calendar Button ===
 Contributors: add2cal, jekuer
 Tags: calendar, button, event, widget, rsvp
-Stable tag: 2.6.0
+Stable tag: 2.7.0
 Requires at least: 5.7
 Requires PHP: 7.4
 Tested up to: 6.8
@@ -155,6 +155,13 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 2.7 =
+* Hungarian localization added
+* No more X-cursor to close lists and modals
+* For oneOption cases, no longer show the calendar icon on the main button
+* Subtle style updates
+* Force specific option on iOS (via optionsIOS) and Android (via optionsMobile)
+
 = 2.6 =
 * Supporting new "simple" style
 * Better ics generation
