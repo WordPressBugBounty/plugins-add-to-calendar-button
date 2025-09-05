@@ -1,7 +1,7 @@
 === Add to Calendar Button ===
 Contributors: add2cal, jekuer
 Tags: calendar, button, event, widget, rsvp
-Stable tag: 2.7.0
+Stable tag: 2.7.1
 Requires at least: 5.7
 Requires PHP: 7.4
 Tested up to: 6.8
