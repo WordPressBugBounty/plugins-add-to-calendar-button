@@ -1,6 +1,6 @@
 {
   "name": "add-to-calendar-button-wordpress",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "private": true,
   "description": "WordPress plugin to integrate the Add to Calendar Button with WordPress CMS systems.",
   "main": "block.js",
@@ -20,7 +20,7 @@
     "react-select": "^5.10.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.3",
+    "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
     "@wordpress/scripts": "^30.23.0",
