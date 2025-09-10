@@ -1,6 +1,6 @@
 {
   "name": "add-to-calendar-button-wordpress",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "private": true,
   "description": "WordPress plugin to integrate the Add to Calendar Button with WordPress CMS systems.",
   "main": "block.js",
