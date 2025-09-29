@@ -155,6 +155,14 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 2.8 =
+* ⚠️ Attention: Date buttons now show the next possible date in multi-date and recurrence cases.
+* Full recurrence UNTIL support.
+* Mitigating edge cases where ics files with unsupported time zones loaded into Google calendar.
+* Now always blocking background scroll on open modals.
+* Replacing ical with apple on iOS and the other way around on Android, unless explicitly overridden via optionsMobile and optionsIOS.
+* Minor change to date button style for better accessibility.
+
 = 2.7 =
 * Hungarian localization added
 * No more X-cursor to close lists and modals
