@@ -4,7 +4,7 @@ Tags: calendar, button, event, widget, rsvp
 Stable tag: 4
 Requires at least: 5.7
 Requires PHP: 7.4
-Tested up to: 6.8
+Tested up to: 6.9
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -155,6 +155,9 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 2.9 =
+* Hebrew localization added
+
 = 2.8 =
 * ⚠️ Attention: Date buttons now show the next possible date in multi-date and recurrence cases.
 * Full recurrence UNTIL support.
