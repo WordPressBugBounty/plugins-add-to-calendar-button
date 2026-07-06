@@ -155,6 +155,9 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 2.10 =
+* Better responsive versions on very small screens for modals and date buttons
+
 = 2.9 =
 * Hebrew localization added
 
