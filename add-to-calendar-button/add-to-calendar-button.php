@@ -3,7 +3,7 @@
  * Plugin Name:       Add to Calendar Button
  * Plugin URI:        https://add-to-calendar-button.com
  * Description:       Create RSVP forms and beautiful buttons, where people can add events to their calendars.
- * Version:           2.10.0
+ * Version:           2.10.1
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            Add to Calendar PRO (Calendarverse)
@@ -37,8 +37,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 // DEFINE CONSTANTS and rather global variables
 define( 'ATCB_SCRIPT_VERSION', '2.15.0' );
-define( 'ATCB_PLUGIN_VERSION', '2.10.0' );
-define( 'ATCB_ET_VERSION', '1.0.0' );
+define( 'ATCB_PLUGIN_VERSION', '2.10.1' );
 $allowedAttributes = [ // we need to use lower case attributes here, since the shortcode makes all attrs lower case
   'prokey',
   'instance',
@@ -120,34 +119,6 @@ $allowedAttributes = [ // we need to use lower case attributes here, since the s
   'customVar',
   'dev',
 ];
-
-// SETUP STUFF
-register_activation_hook(__FILE__, 'atcb_installation');
-function atcb_installation() {
-  set_transient('atcb_load_script_once', true, 12 * HOUR_IN_SECONDS); // Expires after 12 hours
-}
-add_action('admin_enqueue_scripts', 'atcb_enqueue_script_once');
-function atcb_enqueue_script_once() {
-  $atcb_settings_options = get_option( 'atcb_global_settings' );
-  if (get_transient('atcb_load_script_once') || (isset($_GET['page']) && $_GET['page'] === 'add-to-calendar-setting' && !isset($atcb_settings_options['atcb_init']))) {
-    wp_enqueue_script(
-      'add-to-calendar-et',
-      plugins_url('lib/atcba.js', __FILE__),
-      array(),
-      ATCB_ET_VERSION,
-      array( 
-        'strategy'  => 'async',
-        'in_footer' => false,
-      )
-    );
-    delete_transient('atcb_load_script_once');
-    if (!isset($atcb_settings_options['atcb_init'])) {
-      $atcb_settings_options['atcb_init'] = true;
-      update_option('atcb_global_settings', $atcb_settings_options);
-    }
-    // mind to replace m(f+"website-id") with "63a22fdc-3f95-4db6-b483-407756e34c2d" and m(f+"host-url") with "https://a.add-to-calendar-pro.com" at the atcba.js
-  }
-}
 
 // include admin options page
 function enqueue_plugin_settings_css() {
@@ -327,7 +298,16 @@ add_shortcode( 'add-to-calendar-button', 'atcb_shortcode_func' );
 function atcb_register_block() {
   global $allowedAttributes;
   // register the block script
-  wp_register_script( 'atcb-block', plugins_url('build/block.js', __FILE__), array('wp-blocks', 'wp-block-editor', 'wp-element'), ATCB_PLUGIN_VERSION, true );
+  // read dependencies and version from the auto-generated asset file so that
+  // the list stays in sync with the webpack build (e.g. wp-components, react, react-dom).
+  $atcb_block_asset_file = include plugin_dir_path( __FILE__ ) . 'build/block.asset.php';
+  wp_register_script(
+    'atcb-block',
+    plugins_url( 'build/block.js', __FILE__ ),
+    $atcb_block_asset_file['dependencies'],
+    $atcb_block_asset_file['version'],
+    true
+  );
   // register the actual block
   register_block_type( 'add-to-calendar/button', array('editor_script' => 'atcb-block') );
   // prepare isPro info
