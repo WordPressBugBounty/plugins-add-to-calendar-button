@@ -1,0 +1,3 @@
+When updating the version in the package.json, also update the same version number in add-to-calendar-button.php - both, in the header meta data and for the ATCB_PLUGIN_VERSION const.
+When updating the atcb script (which is a hard copy of the jsDelivr output), update the ATCB_SCRIPT_VERSION const to the current atcb script version.
+When updating the plugin to a non-patch version (minor, major), add the changes to the changelog in readme.txt.
