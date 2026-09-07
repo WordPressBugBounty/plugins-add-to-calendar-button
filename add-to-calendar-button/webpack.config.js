@@ -1,20 +1,22 @@
-const defaultConfig = require("@wordpress/scripts/config/webpack.config");
+const path = require('path');
+const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 module.exports = {
-  ...defaultConfig,
   entry: {
-    'block': './block.js',
+    block: './block.js',
   },
   output: {
-    path: __dirname + '/build',
+    path: path.resolve(__dirname, 'build'),
     filename: 'block.js',
   },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+    ],
   },
-  performance: {
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000
-  }
+  plugins: [new DependencyExtractionWebpackPlugin()],
 };

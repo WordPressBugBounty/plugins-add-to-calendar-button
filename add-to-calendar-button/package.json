@@ -1,40 +1,26 @@
 {
   "name": "add-to-calendar-button-wordpress",
-  "version": "2.10.2",
+  "version": "3.0.0",
   "private": true,
   "description": "WordPress plugin to integrate the Add to Calendar Button with WordPress CMS systems.",
   "main": "block.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --mode production",
-    "start": "cross-env NODE_ENV=development webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node scripts/build-atcb-assets.mjs && webpack --mode production && npm run verify-build",
+    "start": "node scripts/build-atcb-assets.mjs && webpack --mode development --watch",
+    "verify-build": "node scripts/verify-build.mjs"
   },
   "author": {
     "name": "Calendarverse GmbH",
     "email": "mail@caldn.com",
     "url": "https://add-to-calendar-pro.com/"
   },
-  "dependencies": {
-    "@wordpress/block-editor": "^16.1.0",
-    "@wordpress/blocks": "^15.25.0",
-    "@wordpress/components": "^38.0.0",
-    "react-select": "^5.10.2"
-  },
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
-    "@babel/preset-react": "^8.0.1",
-    "@wordpress/scripts": "^34.0.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^6.54.0",
+    "add-to-calendar-button": "3.0.0",
     "babel-loader": "^10.1.1",
-    "cross-env": "^10.1.0",
-    "webpack": "^5.109.2",
-    "webpack-cli": "^7.2.2"
-  },
-  "overrides": {
-    "file-entry-cache": "11.1.5",
-    "flat-cache": "6.1.23",
-    "cacheable": "2.5.0",
-    "@cacheable/memory": "2.2.0",
-    "@cacheable/utils": "2.5.0"
+    "webpack": "^5.110.3",
+    "webpack-cli": "^7.2.3"
   }
 }

@@ -135,22 +135,12 @@ class ATCBSettingsPage {
       'atcb_settings_setting_section' // section
     );
 
-    add_settings_field(
-      'atcb_go_unstyle', // id
-      __("Load script unstyled", 'add-to-calendar-button'), // title
-      array( $this, 'atcb_go_unstyle_callback' ), // callback
-      'atcb-settings-admin', // page
-      'atcb_settings_setting_section' // section
-    );
   }
 
   public function atcb_settings_sanitize($input) {
 		$sanitary_values = array();
     if ( isset( $input['atcb_pro_active'] ) ) {
 			$sanitary_values['atcb_pro_active'] = $input['atcb_pro_active'];
-		}
-		if ( isset( $input['atcb_go_unstyle'] ) ) {
-			$sanitary_values['atcb_go_unstyle'] = $input['atcb_go_unstyle'];
 		}
 		return $sanitary_values;
 	}
@@ -164,14 +154,6 @@ class ATCBSettingsPage {
 			'<input type="checkbox" name="atcb_global_settings[atcb_pro_active]" id="atcb_pro_active" value="true" %s> <label for="atcb_pro_active">' . __("I am a PRO user. Hide the ads for it.", 'add-to-calendar-button') . '</label>',
 			( isset( $this->options['atcb_pro_active'] ) && ($this->options['atcb_pro_active'] === 'true' || $this->options['atcb_pro_active'] === true) ) ? 'checked' : ''
 		);
-	}
-
-	public function atcb_go_unstyle_callback() {
-		printf(
-			'<input type="checkbox" name="atcb_global_settings[atcb_go_unstyle]" id="atcb_go_unstyle" value="true" %s> <label for="atcb_go_unstyle">' . __("This will use a smaller version of the script.", 'add-to-calendar-button') . '</label>',
-			( isset( $this->options['atcb_go_unstyle'] ) && ($this->options['atcb_go_unstyle'] === 'true' || $this->options['atcb_pro_active'] === true) ) ? 'checked' : ''
-		);
-    echo '<p class="atcb_disclaimer">(' . __("Mind that elements will not be styled, if activated! You would need to use the customCss option to style them; or (if using the PRO version) activate the \"Load Async\" option at respective styles.", 'add-to-calendar-button') . ')</p>';
 	}
 
   public function atcb_settings_header() {

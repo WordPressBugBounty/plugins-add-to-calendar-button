@@ -3,8 +3,8 @@
  * Plugin Name:       Add to Calendar Button
  * Plugin URI:        https://add-to-calendar-button.com
  * Description:       Create RSVP forms and beautiful buttons, where people can add events to their calendars.
- * Version:           2.10.2
- * Requires at least: 5.7
+ * Version:           3.0.0
+ * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            Add to Calendar PRO (Calendarverse)
  * Author URI:        https://add-to-calendar-pro.com
@@ -36,88 +36,102 @@ others as a managed service.
 defined('ABSPATH') or die("No script kiddies please!");
 
 // DEFINE CONSTANTS and rather global variables
-define( 'ATCB_SCRIPT_VERSION', '2.15.0' );
-define( 'ATCB_PLUGIN_VERSION', '2.10.2' );
-$allowedAttributes = [ // we need to use lower case attributes here, since the shortcode makes all attrs lower case
+define( 'ATCB_SCRIPT_VERSION', '3.0.0' );
+define( 'ATCB_PLUGIN_VERSION', '3.0.0' );
+$allowedAttributes = [
   'prokey',
   'instance',
   'debug',
-  'prooverride',
+  'group-overview',
+  'group-overview-config',
+  'pro-override',
   'cspnonce',
   'identifier',
   'name',
   'dates',
   'description',
-  'startdate',
-  'starttime',
-  'startdatetime',
-  'enddate',
-  'endtime',  
-  'enddatetime',
-  'timezone',
-  'useusertz',
+  'start-date',
+  'start-time',
+  'start-date-time',
+  'end-date',
+  'end-time',
+  'end-date-time',
+  'time-zone',
+  'use-user-tz',
   'location',
   'status',
   'uid',
   'organizer',
   'attendee',
-  'icsfile',
+  'ics-file',
   'images',
   'recurrence',
-  'recurrence_until',
-  'recurrence_byday',
-  'recurrence_bymonth',
-  'recurrence_bymonthday',
-  'recurrence_weekstart',
+  'recurrence-until',
+  'recurrence-by-day',
+  'recurrence-by-month',
+  'recurrence-by-month-day',
+  'recurrence-weekstart',
   'sequence',
-  'recurrence_interval',
-  'recurrence_count',
+  'recurrence-interval',
+  'recurrence-count',
   'availability',
-  'created',
-  'updated',
+  'ics-created',
+  'ics-updated',
   'subscribe',
   'options',
-  'optionsmobile',
-  'optionsios',
-  'icalfilename',
-  'liststyle',
-  'buttonstyle',
+  'options-mobile',
+  'options-ios',
+  'ical-file-name',
+  'list-style',
+  'button-style',
   'trigger',
-  'hideiconbutton',
-  'hideiconlist',
-  'hideiconmodal',
-  'hidetextlabelbutton',
-  'hidetextlabellist',
-  'buttonslist',
-  'hidebackground',
-  'hidecheckmark',
-  'hidebranding',
+  'hide-icon-button',
+  'hide-icon-list',
+  'hide-icon-modal',
+  'hide-text-label-button',
+  'hide-text-label-list',
+  'buttons-list',
+  'hide-background',
+  'hide-checkmark',
+  'hide-branding',
   'size',
   'label',
   'inline',
-  'inlinersvp',
-  'customlabels',
-  'customcss',
-  'lightmode',
+  'inline-rsvp',
+  'custom-labels',
+  'custom-css',
+  'light-mode',
   'language',
-  'hiderichdata',
-  'bypasswebviewcheck',
-  //'blockinteraction',
-  'stylelight',
-  'styledark',
+  'hide-rich-data',
+  'bypass-web-view-check',
+  'block-interaction',
+  'style-light',
+  'style-dark',
+  'load-all-styles',
+  'ics-reminder',
+  'ics-url',
+  'ics-categories',
+  'ics-class',
+  'ics-priority',
+  'ics-geo',
+  'ics-attach',
+  'ics-exdate',
   'disabled',
   'hidden',
-  'hidebutton',
-  'pastdatehandling',
+  'hide-button',
+  'past-date-handling',
   'proxy',
-  'fakemobile',
-  'fakeios',
-  'fakeandroid',
-  'forceoverlay',
+  'fake-mobile',
+  'fake-ios',
+  'fake-android',
+  'force-overlay',
   'rsvp',
   'ty',
-  'customVar',
+  'custom-var',
+  'domain',
   'dev',
+  'group-overview',
+  'group-overview-config'
 ];
 
 // include admin options page
@@ -148,16 +162,15 @@ if (file_exists($plugin_links)) {
 }
 
 // LOADING THE SCRIPT
+function atcb_style_source_url() {
+  return plugins_url( 'build/atcb/' . ATCB_SCRIPT_VERSION . '/styles/', __FILE__ );
+}
+
 // load button script
-function atcb_enqueue_script( $unstyle = false ) {
-  if ( $unstyle === true ) {
-    $script = 'atcb-unstyle.min.js';
-  } else {
-    $script = 'atcb.min.js';
-  }
+function atcb_enqueue_script() {
   wp_enqueue_script(
     'add-to-calendar-button',
-    plugins_url('lib/' . $script, __FILE__),
+    plugins_url( 'build/atcb/' . ATCB_SCRIPT_VERSION . '/atcb.min.js', __FILE__ ),
     array(),
     ATCB_SCRIPT_VERSION,
     array( 
@@ -169,18 +182,23 @@ function atcb_enqueue_script( $unstyle = false ) {
 // ...on the admin panel
 add_action( 'admin_enqueue_scripts', 'atcb_enqueue_script' );
 // ...on the website
-$atcb_settings_options = get_option( 'atcb_global_settings' );
-$unstyle = $atcb_settings_options && isset($atcb_settings_options['atcb_go_unstyle']) && ($atcb_settings_options['atcb_go_unstyle'] === 'true' || $atcb_settings_options['atcb_go_unstyle'] === true) ? true : false;
-add_action( 'wp_enqueue_scripts', function () use ($unstyle) {
-  atcb_enqueue_script($unstyle);
-} );
+add_action( 'wp_enqueue_scripts', 'atcb_enqueue_script' );
+// ...inside the iframe block editor canvas
+add_action( 'enqueue_block_assets', 'atcb_enqueue_script' );
 
 // Function to check whether a value is an allowed attribute
 function atcb_is_allowed_attribute( $value ) {
   global $allowedAttributes;
+  if ( !preg_match('/^[a-z][a-z0-9_-]*$/i', $value) ) {
+    return false;
+  }
   // remove a potential prefix (mf-, sc-, acf-)
-  $value = preg_replace('/^(mf|sc|acf)-/', '', $value);
-  return in_array(strtolower($value), $allowedAttributes, true);
+  $value = preg_replace('/^(mf|sc|acf)-/i', '', $value);
+  $value = strtolower(str_replace(['-', '_'], '', $value));
+  $normalized_allowed_attributes = array_map(function ($attribute) {
+    return strtolower(str_replace(['-', '_'], '', $attribute));
+  }, $allowedAttributes);
+  return in_array($value, $normalized_allowed_attributes, true);
 }
 
 // SHORTCODE
@@ -250,14 +268,15 @@ function atcb_shortcode_func( $atts ) {
           $valueStr = $valueContent;
         }
         // remove any prefix (mf-, sc-, acf-)
-        $key = preg_replace('/^(mf|sc|acf)-/', '', $key);
+        $key = preg_replace('/^(mf|sc|acf)-/i', '', $key);
         // if key is startdatetime or enddatetime, we split its value by "T" and set date and time separately
-        if ($key === 'startdatetime' || $key === 'enddatetime') {
+        $normalized_key = strtolower(str_replace(['-', '_'], '', $key));
+        if ($normalized_key === 'startdatetime' || $normalized_key === 'enddatetime') {
           $valueStrParts = strpos($valueStr, 'T') !== false ? explode('T', $valueStr) : explode(' ', $valueStr);
           // if valueStrParts only has 1 element, continue
           if (count($valueStrParts) === 1) continue;
           // set date and time manually, but only if it matches the format YYY-MM-DD, HH:MM (otherwise, skip)
-          $key_prefix = $key === 'startdatetime' ? 'start' : 'end';
+          $key_prefix = $normalized_key === 'startdatetime' ? 'start' : 'end';
           // strip valueStrParts[0] to 10 chars, valueStrParts[1] to 5 chars
           $valueStrParts[0] = substr($valueStrParts[0], 0, 10);
           $valueStrParts[1] = substr($valueStrParts[1], 0, 5);
@@ -289,7 +308,7 @@ function atcb_shortcode_func( $atts ) {
       $output .= ' debug';
     }
   }
-  $output .= '></add-to-calendar-button>';
+  $output .= ' style-source="' . esc_url( atcb_style_source_url() ) . '"></add-to-calendar-button>';
   return $output;
 }
 add_shortcode( 'add-to-calendar-button', 'atcb_shortcode_func' );
@@ -309,7 +328,10 @@ function atcb_register_block() {
     true
   );
   // register the actual block
-  register_block_type( 'add-to-calendar/button', array('editor_script' => 'atcb-block') );
+  register_block_type( 'add-to-calendar/button', array(
+    'api_version' => 3,
+    'editor_script' => 'atcb-block',
+  ) );
   // prepare isPro info
   $atcb_settings_options = get_option('atcb_global_settings');
   $is_pro_active = $atcb_settings_options && isset($atcb_settings_options['atcb_pro_active']) && ($atcb_settings_options['atcb_pro_active'] === 'true' || $atcb_settings_options['atcb_pro_active'] === true) ? true : false;
@@ -317,6 +339,9 @@ function atcb_register_block() {
   load_plugin_textdomain( 'add-to-calendar-button', false, dirname(plugin_basename( __FILE__ )) . '/languages' );
   $locale = get_Locale();
   $language = explode( '_', $locale )[0];
+  if ( !file_exists(plugin_dir_path( __FILE__ ) . 'build/atcb/' . ATCB_SCRIPT_VERSION . '/locales/' . $language . '.json') ) {
+    $language = 'en';
+  }
   wp_localize_script(
     'atcb-block',
     'atcbI18nObj',
@@ -364,6 +389,7 @@ function atcb_register_block() {
     [
       'isProActive' => $is_pro_active,
       'allowedAttributes' => $allowedAttributes, // this is a global variable
+      'styleSource' => atcb_style_source_url(),
       'defaultTimeZone' => $tz,
       'defaultTitle' => __("My Event Title", 'add-to-calendar-button'),
     ]

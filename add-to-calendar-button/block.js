@@ -1,14 +1,15 @@
 // Import necessary WordPress packages
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
 import { createElement } from '@wordpress/element';
-import { SelectControl, ToggleControl, TextControl, TextareaControl } from '@wordpress/components';
-import Select from 'react-select';
+import { CheckboxControl, SelectControl, ToggleControl, TextControl, TextareaControl } from '@wordpress/components';
 
 // Retrieve the language and settings from the global object
-const allowedFields = window.atcbSettings.allowedAttributes;
+const atcbNormalizeField = (field) => field.replace(/[-_]/g, '').toLowerCase();
+const allowedFields = window.atcbSettings.allowedAttributes.map(atcbNormalizeField);
 const atcbDefaultTimeZone = window.atcbSettings.defaultTimeZone;
 const atcbDefaultTitle = window.atcbSettings.defaultTitle;
+const atcbStyleSource = window.atcbSettings.styleSource;
 const atcbLanguage = window.atcbI18nObj.language;
 
 // attributes to be added to the button within the editor mode
@@ -28,13 +29,9 @@ const selectOptions = [
 	{ label: 'Yahoo', value: 'yahoo' },
 ];
 
-// function to validate field against allowedFields, removing a potential prefix (mf-, sc-, acf-)
-const atcbValidateField = (field, prefix) => {
-  if (prefix === 'mf-') return allowedFields.includes(field.replace(prefix, ''));
-  if (prefix === 'sc-') return allowedFields.includes(field.replace(prefix, ''));
-  if (prefix === 'acf-') return allowedFields.includes(field.replace(prefix, ''));
-  return allowedFields.includes(field);
-}
+// Validate aliases while preserving their spelling in the generated shortcode.
+const atcbValidateField = (field) => allowedFields.includes(atcbNormalizeField(field.replace(/^(mf|sc|acf)-/i, '')));
+const atcbFindField = (attributes, field) => Object.keys(attributes).find((key) => atcbNormalizeField(key) === field);
 
 // preparing a dynamic date in the future for the default values
 const atcbDefaultDate = (function () {
@@ -50,9 +47,8 @@ const atcbDefaultDate = (function () {
 
 // defining the default event strings
 const atcbDefaultLanguage = ( function () {
-	const supportedLanguages = ['en', 'de', 'nl', 'fa', 'fr', 'es', 'et', 'pt', 'tr', 'zh', 'ar', 'hi', 'pl', 'ro', 'id', 'no', 'fi', 'sv', 'cs', 'ja', 'it', 'ko', 'vi'];
-	if ( atcbLanguage != 'en' && atcbLanguage != '' && supportedLanguages.includes(atcbLanguage) ) {
-		return ' language="' + atcbLanguage + '"';
+	if ( atcbLanguage != 'en' && atcbLanguage != '' ) {
+		return 'language="' + atcbLanguage + '"';
 	}
 	return '';
 } )();
@@ -73,55 +69,72 @@ const atcbIconEl = createElement(
 		width: 24,
 		height: 24,
 		viewBox: '0 0 24 24',
+		fill: 'none',
+		stroke: 'currentColor',
+		strokeWidth: 1.7,
+		strokeLinecap: 'round',
+		strokeLinejoin: 'round',
+		style: { fill: 'none' },
 	},
+	createElement( 'rect', {
+		x: 3,
+		y: 4.5,
+		width: 18,
+		height: 17,
+		rx: 3.5,
+		style: { fill: '#fff' },
+	} ),
 	createElement( 'path', {
-		d: 'm14.626 4.6159c0-0.33981 0.33589-0.61587 0.75122-0.61587s0.75122 0.27606 0.75122 0.61587v2.6977c0 0.33981-0.33589 0.61587-0.75122 0.61587s-0.75122-0.27606-0.75122-0.61587zm-0.47524 9.8989c0.2383 0 0.43228 0.19398 0.43228 0.43228 0 0.2383-0.19398 0.43228-0.43228 0.43228l-1.686-0.0052-0.0052 1.6835c0 0.2383-0.19398 0.43228-0.43228 0.43228-0.2383 0-0.43228-0.19398-0.43228-0.43228l0.0052-1.6847-1.6835-0.0065c-0.2383 0-0.43228-0.19398-0.43228-0.43228 0-0.2383 0.19398-0.43228 0.43228-0.43228l1.6847 0.0052 0.0052-1.6835c0-0.2383 0.19398-0.43228 0.43228-0.43228s0.43228 0.19398 0.43228 0.43228l-0.0052 1.686zm-6.2951-9.8989c0-0.33981 0.33597-0.61587 0.7513-0.61587s0.75122 0.27606 0.75122 0.61587v2.6977c0 0.33981-0.33589 0.61587-0.75122 0.61587s-0.75122-0.27606-0.75122-0.61587zm-3.0218 5.2847h14.332v-3.1052c0-0.10415-0.04296-0.19918-0.11199-0.2695-0.06903-0.069034-0.16407-0.11199-0.2695-0.11199h-1.3736c-0.23046 0-0.4166-0.18614-0.4166-0.4166s0.18614-0.4166 0.4166-0.4166h1.3736c0.33461 0 0.63795 0.13671 0.85801 0.35677 0.22006 0.22006 0.35669 0.52332 0.35669 0.85793v11.99c0 0.33461-0.13671 0.63795-0.35677 0.85801-0.22006 0.22006-0.5234 0.35677-0.85801 0.35677h-13.569c-0.33461 0-0.63795-0.13671-0.85801-0.35677-0.22006-0.22134-0.35677-0.52476-0.35677-0.85937v-11.989c0-0.33461 0.13671-0.63795 0.35677-0.85801s0.5234-0.35677 0.85801-0.35677h1.4673c0.23046 0 0.4166 0.18614 0.4166 0.4166s-0.18614 0.4166-0.4166 0.4166h-1.4673c-0.10415 0-0.19918 0.042956-0.2695 0.11199-0.069034 0.069034-0.11199 0.16407-0.11199 0.2695zm14.332 0.83457h-14.332v8.0488c0 0.10415 0.042956 0.19918 0.11199 0.2695 0.069034 0.06903 0.16407 0.11199 0.2695 0.11199h13.569c0.10415 0 0.19918-0.04296 0.2695-0.11199 0.06903-0.06903 0.11199-0.16407 0.11199-0.2695zm-8.5996-4.3212c-0.23046 0-0.4166-0.18614-0.4166-0.4166s0.18614-0.4166 0.4166-0.4166h2.7979c0.23046 0 0.4166 0.18614 0.4166 0.4166s-0.18614 0.4166-0.4166 0.4166z',
-		strokeWidth: '.079993',
+		d: 'M8 2.5v4M16 2.5v4M3 10.5h18M12 13.5v5M9.5 16h5',
+		style: { fill: 'none' },
 	} )
 );
 
 // global function to parse the input
 function atcbParseAttributes( attributes, overrides, overridesOnly = false ) {
 	// parse attributes from "overrides"
-	const pattern = /([\w]+)(?:\s?=\s?)?(?:"([^"]+)"|'([^']+)')?/g;
+	const pattern = /([A-Za-z][\w-]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'))?/g;
 	let match;
 	const parsedAttributes = {};
 	while ( ( match = pattern.exec( overrides ) ) !== null ) {
 		// parsing the attributes, except for unkown attribute, which cannot be used and would even throw an error in some cases (e.g. style)
-		if ( match[1] && atcbValidateField(match[1].toLowerCase(), match[1].split('-')[0]) ) {
-			if ( match[3] ) {
-				parsedAttributes[ match[1].toLowerCase() ] = match[3];
-			} else if ( match[2] ) {
-				parsedAttributes[ match[1].toLowerCase() ] = match[2];
+		if ( match[1] && atcbValidateField(match[1]) ) {
+			if ( match[3] !== undefined ) {
+				parsedAttributes[ match[1] ] = match[3];
+			} else if ( match[2] !== undefined ) {
+				parsedAttributes[ match[1] ] = match[2];
 			} else {
-				parsedAttributes[ match[1].toLowerCase() ] = "true";
+				parsedAttributes[ match[1] ] = "true";
 			}
 		}
 	}
 	// for description, dates, and customLabels, we replace any [ with { and any ] with } to avoid conflicts with the shortcode
-	if ( parsedAttributes['description'] ) {
-		parsedAttributes['description'] = parsedAttributes['description'].replace( /\[/g, '{' ).replace( /\]/g, '}' );
+	const descriptionKey = atcbFindField(parsedAttributes, 'description');
+	const datesKey = atcbFindField(parsedAttributes, 'dates');
+	const customLabelsKey = atcbFindField(parsedAttributes, 'customlabels');
+	if ( descriptionKey ) {
+		parsedAttributes[descriptionKey] = parsedAttributes[descriptionKey].replace( /\[/g, '{' ).replace( /\]/g, '}' );
 	}
-	if ( parsedAttributes['dates'] ) {
+	if ( datesKey ) {
 		// for dates, we also need to make sure the JSON stays valid
-		parsedAttributes['dates'] = parsedAttributes['dates'].replace( /\[/g, '{' ).replace( /\]/g, '}' ).replace( /^{{/, '{' ).replace( /}}$/, '}' );
+		parsedAttributes[datesKey] = parsedAttributes[datesKey].replace( /\[/g, '{' ).replace( /\]/g, '}' ).replace( /^{{/, '{' ).replace( /}}$/, '}' );
 	}
-	if ( parsedAttributes['customLabels'] ) {
-		parsedAttributes['customLabels'] = parsedAttributes['customLabels'].replace( /\[/g, '{' ).replace( /\]/g, '}' );
+	if ( customLabelsKey ) {
+		parsedAttributes[customLabelsKey] = parsedAttributes[customLabelsKey].replace( /\[/g, '{' ).replace( /\]/g, '}' );
 	}
 	if (overridesOnly) return parsedAttributes; // return early if this is only for overrides
 	// validating whether prokey, name, and options are already set and only take the explicit fields, if not
-	if ( attributes.isPro && parsedAttributes['prokey'] === undefined && attributes.prokey && attributes.prokey !== '' ) {
+	if ( attributes.isPro && !atcbFindField(parsedAttributes, 'prokey') && attributes.prokey && attributes.prokey !== '' ) {
 		// only add if valid UUID
 		if ( attributes.prokey.match( /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}/ ) ) {
 			parsedAttributes['prokey'] = attributes.prokey;
 		}
 	}
 	if (!attributes.isPro) {
-		if ( parsedAttributes['name'] === undefined && attributes.name && attributes.name !== '' ) {
+		if ( !atcbFindField(parsedAttributes, 'name') && attributes.name && attributes.name !== '' ) {
 			parsedAttributes['name'] = attributes.name;
 		}
-		if ( parsedAttributes['options'] === undefined && attributes.options) {
+		if ( !atcbFindField(parsedAttributes, 'options') && attributes.options) {
 			if ( Array.isArray(attributes.options) ) {
 				parsedAttributes['options'] = "'" + attributes.options.join( "','" ) + "'";
 			} else {
@@ -171,6 +184,7 @@ function atcbParseAttributes( attributes, overrides, overridesOnly = false ) {
 
 // the actual block generation magic
 registerBlockType( 'add-to-calendar/button', {
+	apiVersion: 3,
 	title: 'Add to Calendar Button',
 	icon: atcbIconEl,
 	category: 'widgets',
@@ -182,7 +196,7 @@ registerBlockType( 'add-to-calendar/button', {
 		prokey: { type: 'string', default: '' },
 		name: { type: 'string', default: atcbDefaultTitle },
 		options: { type: 'array', default: ['apple','google','ical','outlookcom','ms365','yahoo'] },
-		content: { type: 'string', default: `startdate="${ atcbDefaultDate }"\ntimeZone="${ atcbDefaultTimeZone }"${ atcbDefaultLanguage }` },
+		content: { type: 'string', default: `start-date="${ atcbDefaultDate }"\ntime-zone="${ atcbDefaultTimeZone }"\nbutton-style="round"\nlist-style="overlay"\nforce-overlay\n${ atcbDefaultLanguage }` },
 		prooverrides: { type: 'string', default: '' },
 		dynamicdateoverride: { type: 'string', default: 'no' },
 		datetimeinput: { type: 'string', default: 'all-day' },
@@ -199,22 +213,10 @@ registerBlockType( 'add-to-calendar/button', {
 	},
 	edit: function ( props ) {
 		const { attributes, setAttributes } = props;
+		const blockProps = useBlockProps();
 		if (!attributes.isPro && window.atcbSettings && window.atcbSettings.isProActive) {
 			setAttributes( { isPro: true } );
 		}
-		// Select component for the options
-		const MyMultiSelect = ({ options, value, onChange }) => {
-			return (
-				<Select
-					id='atcb-options'
-					isMulti
-					isSearchable={false}
-					options={options}
-					value={value}
-					onChange={onChange}
-				/>
-			);
-		};
 		// Function to update the 'isPro' attribute
     const onTogglePro  = ( newValue ) => {
 			setAttributes( { isPro: newValue } );
@@ -235,14 +237,17 @@ registerBlockType( 'add-to-calendar/button', {
 				content = attributes.content;
 			}
 			const inputContentAttributes = atcbParseAttributes( attributes, content, true );
-			if ( inputContentAttributes[ 'name' ] && inputContentAttributes[ 'name' ] !== '' && !attributes.isPro ) {
-				setAttributes( { name: inputContentAttributes[ 'name' ] } );
+			const nameKey = atcbFindField(inputContentAttributes, 'name');
+			const prokeyKey = atcbFindField(inputContentAttributes, 'prokey');
+			const optionsKey = atcbFindField(inputContentAttributes, 'options');
+			if ( nameKey && inputContentAttributes[nameKey] !== '' && !attributes.isPro ) {
+				setAttributes( { name: inputContentAttributes[nameKey] } );
 			}
-			if ( inputContentAttributes[ 'prokey' ] && inputContentAttributes[ 'prokey' ] !== '' && attributes.isPro ) {
-				setAttributes( { prokey: inputContentAttributes[ 'prokey' ] } );
+			if ( prokeyKey && inputContentAttributes[prokeyKey] !== '' && attributes.isPro ) {
+				setAttributes( { prokey: inputContentAttributes[prokeyKey] } );
 			}
-			if ( inputContentAttributes[ 'options' ] && inputContentAttributes[ 'options' ] !== '' && !attributes.isPro ) {
-				const optionsInput = inputContentAttributes[ 'options' ].replace( /[\['"\]]/g, '' ).toLowerCase().replace(/microsoft/g, 'ms').replace(/\s|\./g, '').split( ',' );
+			if ( optionsKey && inputContentAttributes[optionsKey] !== '' && !attributes.isPro ) {
+				const optionsInput = inputContentAttributes[optionsKey].replace( /[\['"\]]/g, '' ).toLowerCase().replace(/microsoft/g, 'ms').replace(/\s|\./g, '').split( ',' );
 				setAttributes( { options: optionsInput } );
 			}
 		}
@@ -253,9 +258,11 @@ registerBlockType( 'add-to-calendar/button', {
 		function atcbUpdateName( newValue ) {
 			setAttributes( { name: newValue } );
 		}
-		function atcbUpdateOptions( event ) {
-			const newValues = event.map(option => option.value);
-      setAttributes( { options: newValues } );
+		function atcbUpdateOption( option, checked ) {
+			const currentOptions = attributes.options.map(value => value.toLowerCase().replace(/microsoft/g, 'ms').replace(/\s|\./g, ''));
+			setAttributes( {
+				options: checked ? (currentOptions.includes(option) ? currentOptions : [...currentOptions, option]) : currentOptions.filter(value => value !== option),
+			} );
 		}
 		function atcbUpdateOtherParams( newValue ) {
 			setAttributes( { content: newValue } );
@@ -441,15 +448,21 @@ registerBlockType( 'add-to-calendar/button', {
 						createElement(
 							'div',
 							{ style: { padding: '10px' } },
-							createElement( 'label', {
-								for: 'atcb-options',
-								style: { fontSize: '11px', fontWeight: 500, lineHeight: 1.4, textTransform: 'uppercase', display: 'inline-block', marginBottom: '8px', padding: 0 }
-							}, window.atcbI18nObj.label_options),
-							createElement( MyMultiSelect, {
-								options: selectOptions,
-								value: attributes.options.map(option => selectOptions.find(o => o.value === option.toLowerCase().replace(/microsoft/g, 'ms').replace(/\s|\./g, ''))), // replacement for better backwards compatibility
-								onChange: atcbUpdateOptions
-							})
+							createElement(
+								'fieldset',
+								{ style: { border: 0, margin: 0, padding: 0 } },
+								createElement(
+									'legend',
+									{ style: { fontSize: '11px', fontWeight: 500, lineHeight: 1.4, textTransform: 'uppercase', marginBottom: '8px' } },
+									window.atcbI18nObj.label_options
+								),
+								...selectOptions.map(option => createElement( CheckboxControl, {
+									key: option.value,
+									label: option.label,
+									checked: attributes.options.some(value => value.toLowerCase().replace(/microsoft/g, 'ms').replace(/\s|\./g, '') === option.value),
+									onChange: checked => atcbUpdateOption(option.value, checked),
+								}) )
+							)
 						),
 						createElement(
 							'div',
@@ -486,10 +499,15 @@ registerBlockType( 'add-to-calendar/button', {
 					window.atcbI18nObj.note + '!' + (attributes.dynamicdateoverride !== 'no' ? ' ' + window.atcbI18nObj.note_dynamic + '.' : '')
 				)
 			),
-			createElement( 'add-to-calendar-button', {
-				...atcbEditorAttr,
-				...atcbParseAttributes( attributes, attributes.isPro ? attributes.prooverrides : attributes.content ),
-			} ),
+			createElement(
+				'div',
+				blockProps,
+				createElement( 'add-to-calendar-button', {
+					...atcbEditorAttr,
+					...atcbParseAttributes( attributes, attributes.isPro ? attributes.prooverrides : attributes.content ),
+					'style-source': atcbStyleSource,
+				} )
+			),
 		];
 	},
 	save: function ( props ) {
@@ -502,7 +520,7 @@ registerBlockType( 'add-to-calendar/button', {
 			if (tagAttributes[key]) {
 				// replace any quotes with &quot; to avoid conflicts with the shortcode
 				tagAttributes[key] = tagAttributes[key].replace(/"/g, '&quot;');
-				shortcode += ` ${key}="${tagAttributes[key]}"`;
+				shortcode += ` ${key.toLowerCase()}="${tagAttributes[key]}"`;
 			}
 		});
     shortcode += `]`;
