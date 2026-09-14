@@ -196,7 +196,7 @@ The upstream runtime version must remain synchronized in:
 - `ATCB_SCRIPT_VERSION`.
 - The generated `build/atcb/<version>/` directory.
 
-Minor and major plugin releases require a changelog update in `readme.txt`. GitHub release tags use bare semantic versions such as `3.0.0` and must match `package.json`.
+Minor and major plugin releases require a changelog update in `readme.txt`. GitHub release tags use bare semantic versions such as `3.0.2` and must match `package.json`.
 
 ## Translation And Licensing Boundaries
 
