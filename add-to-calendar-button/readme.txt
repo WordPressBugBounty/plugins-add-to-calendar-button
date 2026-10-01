@@ -1,10 +1,10 @@
 === Add to Calendar Button ===
 Contributors: add2cal, jekuer
 Tags: calendar, button, event, widget, rsvp
-Stable tag: 3.0.1
+Stable tag: 3.1.0
 Requires at least: 6.3
 Requires PHP: 7.4
-Tested up to: 7.0
+Tested up to: 7.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -155,6 +155,9 @@ If the problem is not related to the WordPress integration, but rather the butto
 2. Add to Calendar Buttons can take all kinds of styles.
 
 == Changelog ==
+= 3.1 =
+* Improved loading strategy for non-default styles and languages
+
 = 3.0 =
 * Updated the underlying Add to Calendar Button script to version 3.
 * English and the default style remain embedded; all other languages and styles now load on demand from versioned files in the local plugin installation.
